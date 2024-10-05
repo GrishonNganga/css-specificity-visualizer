@@ -46,7 +46,7 @@ export const useSpecificity = (html: string, css: string, js: string) => {
       rules.forEach((rule) => {
         const selector = rule.inline ? "inline style" : rule.selectorText;
         const specificity = rule.inline
-          ? { specificityScore: 1000 }
+          ? { id: 0, class: 0, tag: 0, specificityScore: 1000 } 
           : calculateSpecificity(selector);
         const properties = rule.style;
 
@@ -68,7 +68,7 @@ export const useSpecificity = (html: string, css: string, js: string) => {
           ) {
             computedStyles[property] = {
               value,
-              specificity: { specificityScore: effectiveSpecificity },
+              specificity: { ...specificity, specificityScore: effectiveSpecificity },
               important,
               rule: selector,
             };
