@@ -1,6 +1,6 @@
 import { globalStore } from "@/store/global";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Specificity, CSSRule } from "@/app/types";
+import { Specificity, CSSRule, ComputedStyle } from "@/app/types";
 export const useSpecificity = (html: string, css: string, js: string) => {
   const updateSpecificityExplanation = globalStore(
     (state) => state.updateSpecificityExplanation
@@ -41,7 +41,7 @@ export const useSpecificity = (html: string, css: string, js: string) => {
   const explainSpecificity = useCallback(
     (rules: CSSRule[]): string => {
       const explanations: string[] = [];
-      const computedStyles: { [key: string]: any } = {};
+      const computedStyles: { [key: string]: ComputedStyle } = {};
 
       rules.forEach((rule) => {
         const selector = rule.inline ? "inline style" : rule.selectorText;
@@ -115,7 +115,7 @@ export const useSpecificity = (html: string, css: string, js: string) => {
             (cssRules[i] as CSSStyleSheet).cssRules ||
             (cssRules[i] as CSSStyleSheet).rules;
           if (rules) {
-            for (let rule of Array.from(rules)) {
+            for (const rule of Array.from(rules)) {
               const cssRule = rule as CSSStyleRule;
               if (element.matches(cssRule.selectorText)) {
                 matchingRules.push({

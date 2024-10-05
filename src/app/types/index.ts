@@ -11,3 +11,10 @@ export interface CSSRule {
   style: CSSStyleDeclaration;
   inline?: boolean;
 }
+
+export interface ComputedStyle {
+  value: string;
+  specificity: Specificity;
+  important: boolean;
+  rule: string;
+}
